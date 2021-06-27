@@ -29,8 +29,7 @@ export default {
   },
   methods: {
     search() {
-      this.$router.push({ name: 'searchResults', params: { tag: this.tag } });
-      this.tag = '';
+      this.$router.push({ name: 'searchResults', params: { tag: this.tag.trim() } });
     },
   },
 };

@@ -3,11 +3,12 @@
     <h1>Resultados de: "{{tag}}"</h1>
 
     <ul v-if="!loading" class="image-card-grid">
-      <image-card v-for="image in cleanImages" :key="image.id" :image="image" />
+      <image-card v-for="(image, index) in cleanImages" :key="image.id" :image="image"
+      @click="onClick(index)"/>
     </ul>
 
     <ul v-else class="image-card-grid">
-      <image-card v-for="n in 6" :key="n" :loading="true" />
+      <image-card v-for="n in 6" :key="n" :loading="true"/>
     </ul>
   </div>
 </template>
@@ -15,9 +16,11 @@
 <script>
 import ImageCard from '../components/ImageCard.vue';
 import flickr from '../flickr';
+import store from '../store';
 
 export default {
   name: 'searchResults',
+  store,
   components: {
     ImageCard,
   },
@@ -35,6 +38,7 @@ export default {
   data() {
     return {
       loading: false,
+      winner: false,
       images: [],
     };
   },
@@ -53,16 +57,18 @@ export default {
         this.fetchImages();
       }
     },
-    fetchImages() {
-      return flickr('photos.search', {
-        tags: this.tag,
+    async fetchImages() {
+      const response = await flickr('photos.search', {
+        tags: this.tag.trim(),
         extras: 'url_n, owner_name, description, date_taken, views',
         page: 1,
         per_page: 30,
-      }).then((response) => {
-        this.images = response.data.photos.photo;
-        this.loading = false;
       });
+      this.images = response.data.photos.photo;
+      this.loading = false;
+    },
+    onClick(index) {
+      store.commit('addPoints', index);
     },
   },
 };

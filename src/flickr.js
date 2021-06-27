@@ -1,5 +1,5 @@
-import axios from 'axios'
-import config from '../config'
+import axios from 'axios';
+import config from '../config';
 
 export default function flickr(method, params) {
   return axios({
@@ -11,6 +11,6 @@ export default function flickr(method, params) {
       nojsoncallback: 1,
       ...params,
       method: `flickr.${method}`,
-    }
-  })
+    },
+  });
 }
