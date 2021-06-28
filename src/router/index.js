@@ -12,9 +12,6 @@ const routes = [
   {
     path: '/search/:tag',
     name: 'searchResults',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: SearchResults,
     props: true,
   },
@@ -22,6 +19,7 @@ const routes = [
     path: '/invoice/:id',
     name: 'Invoice',
     component: Invoice,
+    props: true,
   },
 ];
 

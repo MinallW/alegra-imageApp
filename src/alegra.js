@@ -12,18 +12,18 @@ export default function createInvoice(params) {
   });
 }
 
-export function checkSellers() {
-  return axios({
-    method: 'get',
-    url: 'https://api.alegra.com/api/v1/sellers/',
-    headers: { Authorization: config.alegraAuth },
-  });
-}
-
 export function fetchInvoice(id) {
   return axios({
     method: 'get',
     url: `https://api.alegra.com/api/v1/invoices/${id}`,
+    headers: { Authorization: config.alegraAuth },
+  });
+}
+
+export function checkSellers() {
+  return axios({
+    method: 'get',
+    url: 'https://api.alegra.com/api/v1/sellers/',
     headers: { Authorization: config.alegraAuth },
   });
 }

@@ -4,8 +4,8 @@
     <winner v-if="winner" v-bind:name-index="this.nameIndex"/>
   </div>
   <div class="wrapper">
-    <h1 v-if="alreadyClicked">Busca otra imágen en nuestra tienda...</h1>
-    <h1 v-else>Resultados de: "{{tag}}", ¿qué imágen destaca?</h1>
+    <h1 v-if="alreadyClicked">Busca otra imagen en nuestra tienda...</h1>
+    <h1 v-else>Resultados de: "{{tag}}", ¿Qué imagen destaca?</h1>
 
     <ul v-if="!loading" class="image-card-grid">
       <image-card v-for="(image, index) in cleanImages" :key="image.id" :image="image"
