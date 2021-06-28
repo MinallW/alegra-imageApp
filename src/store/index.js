@@ -12,12 +12,12 @@ export default createStore({
         'Donald Trump',
         'Cristiano Ronaldo',
       ],
-      sellerPoints: [0, 0, 0, 0, 0, 0],
+      sellersPoints: [0, 0, 0, 0, 0, 0],
     };
   },
   mutations: {
     addPoints(state, sellerIndex) {
-      state.sellerPoints[sellerIndex] += 3;
+      state.sellersPoints[sellerIndex] += 3;
     },
   },
 });

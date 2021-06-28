@@ -1,4 +1,25 @@
 <template>
+  <table class="sellers">
+    <tr>
+      <th>Vendedor</th>
+      <th>Puntaje</th>
+    </tr>
+    <tr v-for="(seller, points, index) in sellersObject" :key="index">
+      <td>{{points}}</td>
+      <td>{{seller}}</td>
+    </tr>
+  </table>
+  <h1 class="winner">Y, el ganador es:</h1>
+  <div class="sellerNames">
+    <ul class="noList">
+      <li v-for="(seller, index) in sellerNames" :key="index">{{seller}}</li>
+    </ul>
+  </div>
+  <div class="sellerScores">
+    <ul class="noList">
+      <li v-for="(points, index) in sellerPoints" :key="index">{{points}}</li>
+    </ul>
+  </div>
   <div class="wrapper">
     <h1>Resultados de: "{{tag}}"</h1>
 
@@ -39,6 +60,8 @@ export default {
     return {
       loading: false,
       winner: false,
+      sellers: store.state.sellers,
+      sellersPoints: store.state.sellersPoints,
       images: [],
     };
   },
@@ -48,6 +71,17 @@ export default {
     },
     cleanImages() {
       return this.images.filter((image) => image.url_n);
+    },
+    sellersObject() {
+      const [fP, sP, tP, fourthP, fifthP, sixthP] = this.sellersPoints;
+      return {
+        'Mike Tyson': fP,
+        'Michael J.': sP,
+        'Will Smith': tP,
+        'John connor': fourthP,
+        'Donald Tr.': fifthP,
+        'Cristiano R.': sixthP,
+      };
     },
   },
   methods: {
@@ -145,5 +179,31 @@ export default {
 .btn--go {
   padding: 0.5rem 2rem;
   margin-left: 1rem;
+}
+.sellers {
+  border-collapse: collapse;
+  margin-left: 30px;
+  margin-top: 30px;
+  position: absolute;
+}
+.sellers td, .sellers th{
+  border: 1px solid #ddd;
+  padding: 15px;
+}
+.sellers tr:nth-child(even){
+  background-color: #f2f2f2;
+}
+.sellers tr:hover{
+  background-color: #ddd;
+}
+.sellers th{
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+.winner {
+  text-align: right;
 }
 </style>
