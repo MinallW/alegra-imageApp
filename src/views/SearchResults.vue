@@ -86,7 +86,7 @@ export default {
     },
     onClick(index) {
       const result = this.checkPoints();
-      if (result.length === 0) {
+      if (result.length === 0 && this.alreadyClicked === false) {
         store.commit('addPoints', index);
         this.alreadyClicked = true;
         const reCheck = this.checkPoints();
