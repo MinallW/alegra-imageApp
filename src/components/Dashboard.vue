@@ -34,12 +34,10 @@ export default {
   },
   computed: {
     sellers() {
-      console.log(this.sellersNames);
       const sellers = {};
       this.sellersNames.forEach((key, index) => {
         sellers[key.name] = this.sellersPoints[index];
       });
-      console.log(sellers);
       return sellers;
     },
   },
@@ -47,11 +45,15 @@ export default {
 </script>
 
 <style scoped>
+@media only screen and (min-width: 1300px) {
+  .sellers {
+    position: absolute;
+  }
+}
 .sellers {
   border-collapse: collapse;
   margin-left: 30px;
   margin-top: 30px;
-  position: absolute;
 }
 .sellers td, .sellers th{
   border: 1px solid #ddd;

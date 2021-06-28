@@ -35,11 +35,15 @@ export default {
 </script>
 
 <style scoped>
+@media only screen and (min-width: 1300px) {
+  .winner {
+    position: absolute;
+  }
+}
 .winner .btn {
   margin-left: 0px;
 }
 .winner {
-  position: absolute;
   right: 30px;
 }
 </style>

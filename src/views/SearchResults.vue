@@ -1,6 +1,8 @@
 <template>
-  <dashboard/>
-  <winner/>
+  <div class='flex'>
+    <dashboard/>
+    <winner v-if="!winner"/>
+  </div>
   <div class="wrapper">
     <h1>Resultados de: "{{tag}}"</h1>
 
@@ -44,7 +46,7 @@ export default {
   data() {
     return {
       loading: false,
-      winner: false,
+      sellersPoints: store.state.sellersPoints,
       images: [],
     };
   },
@@ -73,18 +75,25 @@ export default {
       this.images = response.data.photos.photo;
       this.loading = false;
     },
-    onClick(index) {
-      store.commit('addPoints', index);
-      console.log(store.state.sellersPoints);
+    checkPoints() {
+      console.log(this.sellersPoints);
     },
-    createBill() {
-      console.log('Called');
+    onClick() {
+      // store.commit('addPoints', index);
+      this.checkPoints();
     },
   },
 };
 </script>
 
 <style lang="scss">
+@media only screen and (max-width: 1300px) {
+  .flex {
+  display: flex;
+  justify-content: space-around;
+  }
+}
+
 .screen-reader-only {
   height: 1px;
   width: 1px;
@@ -156,5 +165,4 @@ export default {
   padding: 0.5rem 2rem;
   margin-left: 1rem;
 }
-
 </style>
