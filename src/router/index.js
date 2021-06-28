@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 import SearchResults from '../views/SearchResults.vue';
-import Dashboard from '../views/Dashboard.vue';
+import Invoice from '../views/Invoice.vue';
 
 const routes = [
   {
@@ -19,9 +19,9 @@ const routes = [
     props: true,
   },
   {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: Dashboard,
+    path: '/invoice/:id',
+    name: 'Invoice',
+    component: Invoice,
   },
 ];
 

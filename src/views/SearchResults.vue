@@ -4,7 +4,8 @@
     <winner v-if="winner" v-bind:name-index="this.nameIndex"/>
   </div>
   <div class="wrapper">
-    <h1>Resultados de: "{{tag}}"</h1>
+    <h1 v-if="alreadyClicked">Busca otra imágen en nuestra tienda...</h1>
+    <h1 v-else>Resultados de: "{{tag}}", ¿qué imágen destaca?</h1>
 
     <ul v-if="!loading" class="image-card-grid">
       <image-card v-for="(image, index) in cleanImages" :key="image.id" :image="image"
@@ -49,6 +50,7 @@ export default {
       sellersPoints: store.state.sellersPoints,
       winner: false,
       nameIndex: null,
+      alreadyClicked: false,
       images: [],
     };
   },
@@ -76,15 +78,17 @@ export default {
         tags: this.tag.trim(),
         extras: 'url_n, owner_name, description, date_taken, views',
         page: 1,
-        per_page: 30,
+        per_page: 6,
       });
       this.images = response.data.photos.photo;
       this.loading = false;
+      this.alreadyClicked = false;
     },
     onClick(index) {
       const result = this.checkPoints();
       if (result.length === 0) {
         store.commit('addPoints', index);
+        this.alreadyClicked = true;
         const reCheck = this.checkPoints();
         if (reCheck.length === 1) {
           this.winner = true;

@@ -52,6 +52,7 @@ export default {
       });
       if (response) {
         this.generated = true;
+        this.$router.push({ name: 'Invoice', params: { id: response.data.id } });
       }
     },
     addQuantity() {

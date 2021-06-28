@@ -19,3 +19,11 @@ export function checkSellers() {
     headers: { Authorization: config.alegraAuth },
   });
 }
+
+export function fetchInvoice(id) {
+  return axios({
+    method: 'get',
+    url: `https://api.alegra.com/api/v1/invoices/${id}`,
+    headers: { Authorization: config.alegraAuth },
+  });
+}

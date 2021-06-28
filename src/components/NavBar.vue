@@ -30,6 +30,7 @@ export default {
   methods: {
     search() {
       this.$router.push({ name: 'searchResults', params: { tag: this.tag.trim() } });
+      this.tag = '';
     },
   },
 };
