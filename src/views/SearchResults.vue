@@ -1,7 +1,7 @@
 <template>
   <div class='flex'>
     <dashboard/>
-    <winner v-if="!winner"/>
+    <winner v-if="winner" v-bind:name-index="this.nameIndex"/>
   </div>
   <div class="wrapper">
     <h1>Resultados de: "{{tag}}"</h1>
@@ -47,6 +47,8 @@ export default {
     return {
       loading: false,
       sellersPoints: store.state.sellersPoints,
+      winner: false,
+      nameIndex: null,
       images: [],
     };
   },
@@ -65,6 +67,10 @@ export default {
         this.fetchImages();
       }
     },
+    checkPoints() {
+      const result = this.sellersPoints.filter((number) => number >= 20);
+      return result;
+    },
     async fetchImages() {
       const response = await flickr('photos.search', {
         tags: this.tag.trim(),
@@ -75,12 +81,16 @@ export default {
       this.images = response.data.photos.photo;
       this.loading = false;
     },
-    checkPoints() {
-      console.log(this.sellersPoints);
-    },
-    onClick() {
-      // store.commit('addPoints', index);
-      this.checkPoints();
+    onClick(index) {
+      const result = this.checkPoints();
+      if (result.length === 0) {
+        store.commit('addPoints', index);
+        const reCheck = this.checkPoints();
+        if (reCheck.length === 1) {
+          this.winner = true;
+          this.nameIndex = index;
+        }
+      }
     },
   },
 };
