@@ -1,15 +1,17 @@
 import { createStore } from 'vuex';
 
-// Create a new store instance.
 export default createStore({
   state() {
     return {
-      sellersPoints: [0, 0, 0, 0, 0, 0],
+      sellersPoints: [],
     };
   },
   mutations: {
     addPoints(state, sellerIndex) {
       state.sellersPoints[sellerIndex] += 3;
+    },
+    addseller(state) {
+      state.sellersPoints.push(0);
     },
   },
 });

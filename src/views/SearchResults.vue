@@ -24,6 +24,7 @@ import flickr from '../flickr';
 import store from '../store';
 import Dashboard from '../components/Dashboard.vue';
 import Winner from '../components/Winner.vue';
+import { checkSellers } from '../alegra';
 
 export default {
   name: 'searchResults',
@@ -38,6 +39,7 @@ export default {
   },
   created() {
     this.search();
+    this.fetchSellersNumbers();
   },
   watch: {
     tag() {
@@ -69,16 +71,27 @@ export default {
         this.fetchImages();
       }
     },
+    async fetchSellersNumbers() {
+      const response = await checkSellers();
+      return response.data.forEach(() => {
+        store.commit('addseller');
+      });
+    },
+    async fetchImageNumbers() {
+      const response = await checkSellers();
+      return response.data.length;
+    },
     checkPoints() {
       const result = this.sellersPoints.filter((number) => number >= 20);
       return result;
     },
     async fetchImages() {
+      const sellers = await this.fetchImageNumbers();
       const response = await flickr('photos.search', {
         tags: this.tag.trim(),
         extras: 'url_n, owner_name, description, date_taken, views',
         page: 1,
-        per_page: 6,
+        per_page: sellers,
       });
       this.images = response.data.photos.photo;
       this.loading = false;
